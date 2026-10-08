@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications | FoodEase Admin</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../assets/css/admin-notifications.css">
+</head>
+
+<body>
+
+<div class="admin-wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <img src="../assets/images/logo.png" alt="FoodEase Logo">
+
+            <div>
+                <h3>FoodEase</h3>
+                <span>Admin Panel</span>
+            </div>
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="customers.html">
+                <i class="bi bi-people-fill"></i>
+                <span>Customers</span>
+            </a>
+
+            <a href="restaurants.html">
+                <i class="bi bi-shop"></i>
+                <span>Restaurants</span>
+            </a>
+
+            <a href="orders.html">
+                <i class="bi bi-bag-check-fill"></i>
+                <span>Orders</span>
+            </a>
+
+            <a href="riders.html">
+                <i class="bi bi-bicycle"></i>
+                <span>Riders</span>
+            </a>
+
+            <a href="notifications.html" class="active">
+                <i class="bi bi-bell-fill"></i>
+                <span>Notifications</span>
+                <span class="menu-badge" id="menuBadge">0</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="admin-mini-profile">
+
+                <div class="admin-avatar">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+
+                <div>
+                    <strong>Administrator</strong>
+                    <small>FoodEase Admin</small>
+                </div>
+
+            </div>
+
+
+            <a href="../login/admin-login.html" class="logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Notifications</h1>
+
+                <p>
+                    Stay updated with important FoodEase activities.
+                </p>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button class="notification-btn">
+
+                    <i class="bi bi-bell-fill"></i>
+
+                    <span id="topNotificationBadge">0</span>
+
+                </button>
+
+
+                <div class="admin-top-profile">
+
+                    <div class="admin-top-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+
+                    <div>
+                        <strong>Admin</strong>
+                        <small>Administrator</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <section class="notification-summary">
+
+            <div class="summary-card">
+
+                <div class="summary-icon all-icon">
+                    <i class="bi bi-bell-fill"></i>
+                </div>
+
+                <div>
+                    <span>Total Notifications</span>
+                    <strong id="totalNotifications">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon unread-icon">
+                    <i class="bi bi-envelope-fill"></i>
+                </div>
+
+                <div>
+                    <span>Unread</span>
+                    <strong id="unreadNotifications">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon order-icon">
+                    <i class="bi bi-bag-check-fill"></i>
+                </div>
+
+                <div>
+                    <span>Order Alerts</span>
+                    <strong id="orderNotifications">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon system-icon">
+                    <i class="bi bi-gear-fill"></i>
+                </div>
+
+                <div>
+                    <span>System Alerts</span>
+                    <strong id="systemNotifications">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= NOTIFICATION CARD ================= -->
+
+        <section class="notification-card">
+
+            <!-- HEADER -->
+
+            <div class="notification-header">
+
+                <div>
+
+                    <h2>All Notifications</h2>
+
+                    <p>
+                        Manage system notifications and alerts.
+                    </p>
+
+                </div>
+
+
+                <button class="create-btn"
+                        onclick="openCreateModal()">
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    Create Notification
+
+                </button>
+
+            </div>
+
+
+            <!-- TOOLBAR -->
+
+            <div class="notification-toolbar">
+
+                <div class="search-box">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search notifications..."
+                        oninput="renderNotifications()">
+
+                </div>
+
+
+                <div class="filter-tabs">
+
+                    <button
+                        class="filter-tab active"
+                        data-filter="all"
+                        onclick="setFilter('all', this)">
+
+                        All
+
+                    </button>
+
+                    <button
+                        class="filter-tab"
+                        data-filter="unread"
+                        onclick="setFilter('unread', this)">
+
+                        Unread
+
+                    </button>
+
+                    <button
+                        class="filter-tab"
+                        data-filter="read"
+                        onclick="setFilter('read', this)">
+
+                        Read
+
+                    </button>
+
+                </div>
+
+
+                <select id="typeFilter"
+                        onchange="renderNotifications()">
+
+                    <option value="all">
+                        All Types
+                    </option>
+
+                    <option value="order">
+                        Orders
+                    </option>
+
+                    <option value="customer">
+                        Customers
+                    </option>
+
+                    <option value="restaurant">
+                        Restaurants
+                    </option>
+
+                    <option value="rider">
+                        Riders
+                    </option>
+
+                    <option value="system">
+                        System
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ACTION BAR -->
+
+            <div class="action-bar">
+
+                <span id="selectionText">
+                    Manage your notifications
+                </span>
+
+
+                <div class="action-buttons">
+
+                    <button onclick="markAllAsRead()">
+
+                        <i class="bi bi-check2-all"></i>
+
+                        Mark All as Read
+
+                    </button>
+
+
+                    <button
+                        class="danger-action"
+                        onclick="clearAllNotifications()">
+
+                        <i class="bi bi-trash3"></i>
+
+                        Clear All
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOTIFICATION LIST -->
+
+            <div id="notificationList"
+                 class="notification-list">
+            </div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div id="emptyState"
+                 class="empty-state">
+
+                <div class="empty-icon">
+
+                    <i class="bi bi-bell-slash"></i>
+
+                </div>
+
+                <h3>No Notifications Found</h3>
+
+                <p>
+                    There are no notifications matching your current filter.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= CREATE NOTIFICATION MODAL ================= -->
+
+<div class="modal-overlay"
+     id="createModal">
+
+    <div class="custom-modal">
+
+        <button class="modal-close"
+                onclick="closeCreateModal()">
+
+            <i class="bi bi-x-lg"></i>
+
+        </button>
+
+
+        <div class="modal-heading">
+
+            <div class="heading-icon">
+                <i class="bi bi-bell-plus-fill"></i>
+            </div>
+
+            <div>
+
+                <h2>Create Notification</h2>
+
+                <p>
+                    Send an internal notification to the FoodEase system.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form id="notificationForm">
+
+            <div class="form-group">
+
+                <label for="notificationTitle">
+                    Notification Title
+                </label>
+
+                <input
+                    type="text"
+                    id="notificationTitle"
+                    placeholder="Enter notification title"
+                    required>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="notificationType">
+                        Type
+                    </label>
+
+                    <select id="notificationType"
+                            required>
+
+                        <option value="system">
+                            System
+                        </option>
+
+                        <option value="order">
+                            Order
+                        </option>
+
+                        <option value="customer">
+                            Customer
+                        </option>
+
+                        <option value="restaurant">
+                            Restaurant
+                        </option>
+
+                        <option value="rider">
+                            Rider
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="notificationPriority">
+                        Priority
+                    </label>
+
+                    <select id="notificationPriority">
+
+                        <option value="normal">
+                            Normal
+                        </option>
+
+                        <option value="important">
+                            Important
+                        </option>
+
+                        <option value="urgent">
+                            Urgent
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="notificationMessage">
+                    Message
+                </label>
+
+                <textarea
+                    id="notificationMessage"
+                    rows="5"
+                    placeholder="Write your notification..."
+                    required></textarea>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeCreateModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    <i class="bi bi-send-fill"></i>
+
+                    Create Notification
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   FOOD EASE ADMIN NOTIFICATIONS
+========================================================= */
+
+const ADMIN_NOTIFICATION_KEY =
+    "foodease_admin_notifications";
+
+let currentFilter = "all";
+
+
+/* ================= DEFAULT NOTIFICATIONS ================= */
+
+const defaultNotifications = [
+
+    {
+        id: "AN-1001",
+        title: "New Order Received",
+        message: "A new food order has been placed and is waiting for processing.",
+        type: "order",
+        priority: "important",
+        read: false,
+        createdAt: new Date().toISOString()
+    },
+
+    {
+        id: "AN-1002",
+        title: "Restaurant Received Order",
+        message: "A restaurant has received a new customer order.",
+        type: "restaurant",
+        priority: "normal",
+        read: false,
+        createdAt: new Date(Date.now() - 1000 * 60 * 25).toISOString()
+    },
+
+    {
+        id: "AN-1003",
+        title: "New Rider Available",
+        message: "A rider is currently available for delivery assignment.",
+        type: "rider",
+        priority: "normal",
+        read: true,
+        createdAt: new Date(Date.now() - 1000 * 60 * 55).toISOString()
+    },
+
+    {
+        id: "AN-1004",
+        title: "Customer Registration",
+        message: "A new customer account has been registered on FoodEase.",
+        type: "customer",
+        priority: "normal",
+        read: true,
+        createdAt: new Date(Date.now() - 1000 * 60 * 90).toISOString()
+    },
+
+    {
+        id: "AN-1005",
+        title: "System Maintenance Reminder",
+        message: "Regular system maintenance should be performed soon.",
+        type: "system",
+        priority: "important",
+        read: false,
+        createdAt: new Date(Date.now() - 1000 * 60 * 150).toISOString()
+    },
+
+    {
+        id: "AN-1006",
+        title: "Restaurant Status Updated",
+        message: "A restaurant has changed its operating status.",
+        type: "restaurant",
+        priority: "normal",
+        read: true,
+        createdAt: new Date(Date.now() - 1000 * 60 * 210).toISOString()
+    },
+
+    {
+        id: "AN-1007",
+        title: "Delivery Completed",
+        message: "A rider has successfully completed a food delivery.",
+        type: "rider",
+        priority: "normal",
+        read: true,
+        createdAt: new Date(Date.now() - 1000 * 60 * 300).toISOString()
+    }
+
+];
+
+
+/* ================= LOAD NOTIFICATIONS ================= */
+
+function getNotifications() {
+
+    const saved =
+        localStorage.getItem(
+            ADMIN_NOTIFICATION_KEY
+        );
+
+
+    if (!saved) {
+
+        localStorage.setItem(
+            ADMIN_NOTIFICATION_KEY,
+            JSON.stringify(defaultNotifications)
+        );
+
+        return [...defaultNotifications];
+
+    }
+
+
+    try {
+
+        const data =
+            JSON.parse(saved);
+
+        if (Array.isArray(data)) {
+
+            return data;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Notification loading error:",
+            error
+        );
+
+    }
+
+
+    localStorage.setItem(
+        ADMIN_NOTIFICATION_KEY,
+        JSON.stringify(defaultNotifications)
+    );
+
+    return [...defaultNotifications];
+
+}
+
+
+/* ================= SAVE NOTIFICATIONS ================= */
+
+function saveNotifications(notifications) {
+
+    localStorage.setItem(
+        ADMIN_NOTIFICATION_KEY,
+        JSON.stringify(notifications)
+    );
+
+}
+
+
+/* ================= INITIALIZE ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        syncOrderNotifications();
+
+        renderNotifications();
+
+        updateSummary();
+
+        updateBadges();
+
+
+        document
+            .getElementById("notificationForm")
+            .addEventListener(
+                "submit",
+                createNotification
+            );
+
+    }
+);
+
+
+/* ================= SYNC ORDER NOTIFICATIONS ================= */
+
+function syncOrderNotifications() {
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "foodease_orders"
+            ) || "[]"
+        );
+
+
+    if (!Array.isArray(orders) || orders.length === 0) {
+        return;
+    }
+
+
+    let notifications =
+        getNotifications();
+
+
+    orders.forEach(order => {
+
+        if (!order.orderId) {
+            return;
+        }
+
+
+        const notificationId =
+            `ORDER-${order.orderId}`;
+
+
+        const alreadyExists =
+            notifications.some(
+                notification =>
+                    notification.id === notificationId
+            );
+
+
+        if (alreadyExists) {
+            return;
+        }
+
+
+        const customer =
+            order.customer ||
+            order.customerInfo ||
+            order.deliveryInfo ||
+            {};
+
+
+        const customerName =
+            customer.fullName ||
+            customer.name ||
+            "A customer";
+
+
+        notifications.unshift({
+
+            id: notificationId,
+
+            title: "New Order Activity",
+
+            message:
+                `${customerName} placed order ${order.orderId}.`,
+
+            type: "order",
+
+            priority: "important",
+
+            read: false,
+
+            createdAt:
+                order.orderDate ||
+                new Date().toISOString()
+
+        });
+
+    });
+
+
+    saveNotifications(notifications);
+
+}
+
+
+/* ================= RENDER ================= */
+
+function renderNotifications() {
+
+    const notifications =
+        getNotifications();
+
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const type =
+        document
+            .getElementById("typeFilter")
+            .value;
+
+
+    const filtered =
+        notifications.filter(
+            notification => {
+
+                const matchesSearch =
+                    notification.title
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    notification.message
+                        .toLowerCase()
+                        .includes(search);
+
+
+                const matchesType =
+                    type === "all" ||
+                    notification.type === type;
+
+
+                let matchesRead = true;
+
+
+                if (currentFilter === "unread") {
+
+                    matchesRead =
+                        notification.read !== true;
+
+                }
+
+
+                if (currentFilter === "read") {
+
+                    matchesRead =
+                        notification.read === true;
+
+                }
+
+
+                return (
+                    matchesSearch &&
+                    matchesType &&
+                    matchesRead
+                );
+
+            }
+        );
+
+
+    const list =
+        document.getElementById(
+            "notificationList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        document
+            .getElementById("emptyState")
+            .classList.add("show");
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("emptyState")
+        .classList.remove("show");
+
+
+    filtered.forEach(
+        notification => {
+
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                `notification-item
+                 ${notification.read ? "read" : "unread"}`;
+
+
+            item.innerHTML = `
+
+                <div class="notification-icon ${getTypeClass(notification.type)}">
+
+                    <i class="${getTypeIcon(notification.type)}"></i>
+
+                </div>
+
+
+                <div class="notification-content">
+
+                    <div class="notification-top">
+
+                        <div>
+
+                            <h3>
+                                ${escapeHtml(notification.title)}
+                            </h3>
+
+                            <div class="notification-meta">
+
+                                <span class="type-label">
+                                    ${capitalize(notification.type)}
+                                </span>
+
+                                <span class="priority-label ${getPriorityClass(notification.priority)}">
+                                    ${capitalize(notification.priority)}
+                                </span>
+
+                                <span class="time-label">
+                                    ${formatTime(notification.createdAt)}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            !notification.read
+                            ?
+                            `
+                            <span class="unread-dot"></span>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+
+                    <p>
+                        ${escapeHtml(notification.message)}
+                    </p>
+
+
+                    <div class="notification-actions">
+
+                        ${
+                            !notification.read
+                            ?
+                            `
+                            <button
+                                onclick="markAsRead('${notification.id}')">
+
+                                <i class="bi bi-check2"></i>
+
+                                Mark as Read
+
+                            </button>
+                            `
+                            :
+                            `
+                            <span class="read-label">
+                                <i class="bi bi-check2-all"></i>
+                                Read
+                            </span>
+                            `
+                        }
+
+
+                        <button
+                            class="delete-notification"
+                            onclick="deleteNotification('${notification.id}')">
+
+                            <i class="bi bi-trash3"></i>
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(item);
+
+        }
+    );
+
+
+    updateSummary();
+
+    updateBadges();
+
+}
+
+
+/* ================= SET FILTER ================= */
+
+function setFilter(filter, button) {
+
+    currentFilter = filter;
+
+
+    document
+        .querySelectorAll(".filter-tab")
+        .forEach(tab => {
+
+            tab.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    renderNotifications();
+
+}
+
+
+/* ================= MARK AS READ ================= */
+
+function markAsRead(notificationId) {
+
+    const notifications =
+        getNotifications();
+
+
+    const notification =
+        notifications.find(
+            item =>
+                item.id === notificationId
+        );
+
+
+    if (!notification) {
+        return;
+    }
+
+
+    notification.read = true;
+
+
+    saveNotifications(notifications);
+
+
+    renderNotifications();
+
+}
+
+
+/* ================= MARK ALL ================= */
+
+function markAllAsRead() {
+
+    const notifications =
+        getNotifications();
+
+
+    notifications.forEach(
+        notification => {
+
+            notification.read = true;
+
+        }
+    );
+
+
+    saveNotifications(notifications);
+
+
+    renderNotifications();
+
+}
+
+
+/* ================= DELETE ================= */
+
+function deleteNotification(notificationId) {
+
+    const notifications =
+        getNotifications();
+
+
+    const notification =
+        notifications.find(
+            item =>
+                item.id === notificationId
+        );
+
+
+    if (!notification) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this notification?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const updated =
+        notifications.filter(
+            item =>
+                item.id !== notificationId
+        );
+
+
+    saveNotifications(updated);
+
+
+    renderNotifications();
+
+}
+
+
+/* ================= CLEAR ALL ================= */
+
+function clearAllNotifications() {
+
+    const notifications =
+        getNotifications();
+
+
+    if (notifications.length === 0) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "This will remove all admin notifications. Continue?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    localStorage.setItem(
+        ADMIN_NOTIFICATION_KEY,
+        "[]"
+    );
+
+
+    renderNotifications();
+
+}
+
+
+/* ================= CREATE MODAL ================= */
+
+function openCreateModal() {
+
+    document
+        .getElementById("createModal")
+        .classList.add("show");
+
+}
+
+
+function closeCreateModal() {
+
+    document
+        .getElementById("createModal")
+        .classList.remove("show");
+
+}
+
+
+/* ================= CREATE NOTIFICATION ================= */
+
+function createNotification(event) {
+
+    event.preventDefault();
+
+
+    const title =
+        document
+            .getElementById("notificationTitle")
+            .value
+            .trim();
+
+
+    const type =
+        document
+            .getElementById("notificationType")
+            .value;
+
+
+    const priority =
+        document
+            .getElementById("notificationPriority")
+            .value;
+
+
+    const message =
+        document
+            .getElementById("notificationMessage")
+            .value
+            .trim();
+
+
+    if (
+        !title ||
+        !message
+    ) {
+
+        alert(
+            "Please enter notification title and message."
+        );
+
+        return;
+
+    }
+
+
+    const notifications =
+        getNotifications();
+
+
+    const newNotification = {
+
+        id:
+            "AN-" +
+            Date.now(),
+
+        title:
+
+            title,
+
+        message:
+
+            message,
+
+        type:
+
+            type,
+
+        priority:
+
+            priority,
+
+        read:
+
+            false,
+
+        createdAt:
+
+            new Date().toISOString()
+
+    };
+
+
+    notifications.unshift(
+        newNotification
+    );
+
+
+    saveNotifications(
+        notifications
+    );
+
+
+    document
+        .getElementById("notificationForm")
+        .reset();
+
+
+    closeCreateModal();
+
+
+    currentFilter = "all";
+
+
+    document
+        .querySelectorAll(".filter-tab")
+        .forEach(tab => {
+
+            tab.classList.remove("active");
+
+        });
+
+
+    document
+        .querySelector(
+            '.filter-tab[data-filter="all"]'
+        )
+        .classList.add("active");
+
+
+    renderNotifications();
+
+
+    alert(
+        "Notification created successfully."
+    );
+
+}
+
+
+/* ================= SUMMARY ================= */
+
+function updateSummary() {
+
+    const notifications =
+        getNotifications();
+
+
+    const unread =
+        notifications.filter(
+            notification =>
+                notification.read !== true
+        ).length;
+
+
+    const order =
+        notifications.filter(
+            notification =>
+                notification.type === "order"
+        ).length;
+
+
+    const system =
+        notifications.filter(
+            notification =>
+                notification.type === "system"
+        ).length;
+
+
+    document
+        .getElementById("totalNotifications")
+        .textContent =
+        notifications.length;
+
+
+    document
+        .getElementById("unreadNotifications")
+        .textContent =
+        unread;
+
+
+    document
+        .getElementById("orderNotifications")
+        .textContent =
+        order;
+
+
+    document
+        .getElementById("systemNotifications")
+        .textContent =
+        system;
+
+}
+
+
+/* ================= BADGES ================= */
+
+function updateBadges() {
+
+    const notifications =
+        getNotifications();
+
+
+    const unread =
+        notifications.filter(
+            notification =>
+                notification.read !== true
+        ).length;
+
+
+    const topBadge =
+        document.getElementById(
+            "topNotificationBadge"
+        );
+
+
+    const menuBadge =
+        document.getElementById(
+            "menuBadge"
+        );
+
+
+    if (unread > 0) {
+
+        topBadge.textContent =
+            unread > 99
+            ? "99+"
+            : unread;
+
+        topBadge.style.display =
+            "flex";
+
+
+        menuBadge.textContent =
+            unread > 99
+            ? "99+"
+            : unread;
+
+        menuBadge.style.display =
+            "flex";
+
+    } else {
+
+        topBadge.style.display =
+            "none";
+
+        menuBadge.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ================= TYPE ICON ================= */
+
+function getTypeIcon(type) {
+
+    switch (type) {
+
+        case "order":
+            return "bi bi-bag-check-fill";
+
+        case "customer":
+            return "bi bi-person-fill";
+
+        case "restaurant":
+            return "bi bi-shop";
+
+        case "rider":
+            return "bi bi-bicycle";
+
+        default:
+            return "bi bi-gear-fill";
+
+    }
+
+}
+
+
+/* ================= TYPE CLASS ================= */
+
+function getTypeClass(type) {
+
+    switch (type) {
+
+        case "order":
+            return "order-notification";
+
+        case "customer":
+            return "customer-notification";
+
+        case "restaurant":
+            return "restaurant-notification";
+
+        case "rider":
+            return "rider-notification";
+
+        default:
+            return "system-notification";
+
+    }
+
+}
+
+
+/* ================= PRIORITY ================= */
+
+function getPriorityClass(priority) {
+
+    switch (priority) {
+
+        case "urgent":
+            return "priority-urgent";
+
+        case "important":
+            return "priority-important";
+
+        default:
+            return "priority-normal";
+
+    }
+
+}
+
+
+/* ================= CAPITALIZE ================= */
+
+function capitalize(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    return value.charAt(0).toUpperCase() +
+           value.slice(1);
+
+}
+
+
+/* ================= TIME FORMAT ================= */
+
+function formatTime(dateString) {
+
+    const date =
+        new Date(dateString);
+
+
+    if (isNaN(date.getTime())) {
+        return "-";
+    }
+
+
+    const now =
+        new Date();
+
+
+    const difference =
+        now.getTime() -
+        date.getTime();
+
+
+    const minutes =
+        Math.floor(
+            difference / 60000
+        );
+
+
+    if (minutes < 1) {
+        return "Just now";
+    }
+
+
+    if (minutes < 60) {
+
+        return `${minutes} min ago`;
+
+    }
+
+
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
+
+
+    if (hours < 24) {
+
+        return `${hours} hr ago`;
+
+    }
+
+
+    const days =
+        Math.floor(
+            hours / 24
+        );
+
+
+    if (days < 7) {
+
+        return `${days} day${days > 1 ? "s" : ""} ago`;
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* ================= ESCAPE HTML ================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* ================= MODAL CLICK ================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target.id ===
+            "createModal"
+        ) {
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+
+/* ================= ESC KEY ================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

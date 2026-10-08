@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Customers - FoodEase Admin</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/admin-customers.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="admin-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="admin-sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/images/logo.png"
+                alt="FoodEase Logo"
+            >
+
+            <div>
+
+                <h4>FoodEase</h4>
+
+                <span>
+                    Admin Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-profile-mini">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div>
+
+                <strong>
+                    Administrator
+                </strong>
+
+                <span>
+                    System Admin
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="admin-nav">
+
+            <a href="dashboard.html">
+
+                <span class="nav-icon">▦</span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="customers.html"
+                class="active"
+            >
+
+                <span class="nav-icon">👥</span>
+
+                <span>
+                    Customers
+                </span>
+
+                <span
+                    class="nav-badge"
+                    id="customerBadge"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+            <a href="restaurants.html">
+
+                <span class="nav-icon">🏪</span>
+
+                <span>
+                    Restaurants
+                </span>
+
+                <span class="nav-badge restaurant-badge">
+                    13
+                </span>
+
+            </a>
+
+
+            <a href="orders.html">
+
+                <span class="nav-icon">🛒</span>
+
+                <span>
+                    Orders
+                </span>
+
+                <span
+                    class="nav-badge order-badge"
+                    id="orderBadge"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+            <a href="riders.html">
+
+                <span class="nav-icon">🛵</span>
+
+                <span>
+                    Riders
+                </span>
+
+            </a>
+
+
+            <a href="notifications.html">
+
+                <span class="nav-icon">🔔</span>
+
+                <span>
+                    Notifications
+                </span>
+
+                <span
+                    class="nav-badge notification-badge"
+                    id="notificationBadge"
+                >
+                    0
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="../index.html"
+                class="logout-link"
+            >
+
+                <span>↪</span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- HEADER -->
+
+        <header class="page-header">
+
+            <div>
+
+                <p class="page-label">
+                    User Management
+                </p>
+
+                <h1>
+                    Customers
+                </h1>
+
+                <p class="page-description">
+                    Manage FoodEase customers and monitor their activity.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="date-box">
+
+                    <span>
+                        📅
+                    </span>
+
+                    <div>
+
+                        <small>
+                            Today
+                        </small>
+
+                        <strong id="currentDate">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-header-avatar">
+                    A
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             STATISTICS
+             ===================================================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon customers-icon">
+                    👥
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Customers
+                    </span>
+
+                    <h2 id="totalCustomers">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon active-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Active Customers
+                    </span>
+
+                    <h2 id="activeCustomers">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blocked-icon">
+                    🚫
+                </div>
+
+                <div>
+
+                    <span>
+                        Blocked Customers
+                    </span>
+
+                    <h2 id="blockedCustomers">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orders-icon">
+                    🛒
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Orders
+                    </span>
+
+                    <h2 id="totalCustomerOrders">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CUSTOMER MANAGEMENT
+             ===================================================== -->
+
+        <section class="customers-card">
+
+
+            <!-- TOOLBAR -->
+
+            <div class="customer-toolbar">
+
+
+                <div>
+
+                    <h2>
+                        Customer List
+                    </h2>
+
+                    <p>
+                        All registered FoodEase customers
+                    </p>
+
+                </div>
+
+
+                <div class="toolbar-actions">
+
+
+                    <div class="search-box">
+
+                        <span>
+                            🔍
+                        </span>
+
+                        <input
+                            type="text"
+                            id="customerSearch"
+                            placeholder="Search customer..."
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="statusFilter"
+                        class="status-filter"
+                    >
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="blocked">
+                            Blocked
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TABLE -->
+
+            <div class="table-wrapper">
+
+                <table class="customer-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Contact
+                            </th>
+
+                            <th>
+                                Address
+                            </th>
+
+                            <th>
+                                Orders
+                            </th>
+
+                            <th>
+                                Total Spent
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="customerTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div
+                class="empty-state"
+                id="emptyState"
+            >
+
+                <div class="empty-icon">
+                    👥
+                </div>
+
+                <h3>
+                    No Customers Found
+                </h3>
+
+                <p>
+                    No customer matches your current search or filter.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     CUSTOMER DETAILS MODAL
+     ===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="customerModal"
+>
+
+    <div class="customer-modal">
+
+
+        <button
+            class="modal-close"
+            onclick="closeCustomerModal()"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-profile">
+
+            <div
+                class="modal-avatar"
+                id="modalAvatar"
+            >
+                A
+            </div>
+
+            <div>
+
+                <h2 id="modalName">
+                    Customer
+                </h2>
+
+                <span id="modalStatus">
+                    Active
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-details">
+
+
+            <div class="detail-box">
+
+                <span>
+                    Email
+                </span>
+
+                <strong id="modalEmail">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    Phone
+                </span>
+
+                <strong id="modalPhone">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    Address
+                </span>
+
+                <strong id="modalAddress">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    Total Orders
+                </span>
+
+                <strong id="modalOrders">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    Total Spent
+                </span>
+
+                <strong id="modalSpent">
+                    ৳0
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    Customer Since
+                </span>
+
+                <strong id="modalDate">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-secondary"
+                onclick="closeCustomerModal()"
+            >
+                Close
+            </button>
+
+            <button
+                class="modal-primary"
+                id="modalStatusButton"
+            >
+                Block Customer
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script>
+
+const ORDERS_KEY =
+    "foodease_orders";
+
+const CUSTOMER_PROFILE_KEY =
+    "foodease_customer_profile";
+
+const CUSTOMER_STATUS_KEY =
+    "foodease_customer_status";
+
+
+let customers = [];
+
+let selectedCustomerKey = null;
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function getJSON(key, fallback) {
+
+    try {
+
+        const data =
+            localStorage.getItem(key);
+
+        return data
+            ? JSON.parse(data)
+            : fallback;
+
+    } catch (error) {
+
+        return fallback;
+
+    }
+
+}
+
+
+function saveJSON(key, data) {
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(data)
+    );
+
+}
+
+
+function formatMoney(amount) {
+
+    return "৳" +
+        Number(amount || 0)
+            .toLocaleString();
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "—";
+    }
+
+    const date =
+        new Date(dateValue);
+
+    if (isNaN(date.getTime())) {
+        return "—";
+    }
+
+    return date.toLocaleDateString(
+        "en-BD",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CURRENT DATE
+   ========================================================= */
+
+function loadDate() {
+
+    document.getElementById(
+        "currentDate"
+    ).textContent =
+        new Date().toLocaleDateString(
+            "en-BD",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   CUSTOMER STATUS
+   ========================================================= */
+
+function getStatuses() {
+
+    return getJSON(
+        CUSTOMER_STATUS_KEY,
+        {}
+    );
+
+}
+
+
+function saveStatuses(statuses) {
+
+    saveJSON(
+        CUSTOMER_STATUS_KEY,
+        statuses
+    );
+
+}
+
+
+function getCustomerStatus(key) {
+
+    const statuses =
+        getStatuses();
+
+    return statuses[key] === "blocked"
+        ? "blocked"
+        : "active";
+
+}
+
+
+/* =========================================================
+   BUILD CUSTOMERS FROM ORDERS
+   ========================================================= */
+
+function buildCustomers() {
+
+    const orders =
+        getJSON(
+            ORDERS_KEY,
+            []
+        );
+
+
+    const customerMap =
+        new Map();
+
+
+    orders.forEach(order => {
+
+        const customer =
+            order.customer ||
+            order.customerInfo ||
+            order.deliveryInfo;
+
+
+        if (!customer) {
+            return;
+        }
+
+
+        const email =
+            customer.email || "";
+
+
+        const phone =
+            customer.phone || "";
+
+
+        const name =
+            customer.fullName ||
+            customer.name ||
+            "Customer";
+
+
+        const key =
+            email.toLowerCase() ||
+            phone ||
+            name.toLowerCase();
+
+
+        if (!customerMap.has(key)) {
+
+            customerMap.set(
+                key,
+                {
+
+                    key,
+
+                    name,
+
+                    email:
+                        email ||
+                        "Not provided",
+
+                    phone:
+                        phone ||
+                        "Not provided",
+
+                    address:
+                        customer.address ||
+                        "Not provided",
+
+                    city:
+                        customer.city ||
+                        "",
+
+                    orders: [],
+
+                    firstOrderDate:
+                        order.orderDate ||
+                        order.createdAt ||
+                        null
+
+                }
+            );
+
+        }
+
+
+        const existing =
+            customerMap.get(key);
+
+
+        existing.orders.push(
+            order
+        );
+
+
+        if (
+            !existing.firstOrderDate ||
+            new Date(
+                order.orderDate ||
+                order.createdAt ||
+                0
+            ) <
+            new Date(
+                existing.firstOrderDate
+            )
+        ) {
+
+            existing.firstOrderDate =
+                order.orderDate ||
+                order.createdAt;
+
+        }
+
+    });
+
+
+    /*
+       Include saved customer profile
+       even if the customer has no order.
+    */
+
+    const profile =
+        getJSON(
+            CUSTOMER_PROFILE_KEY,
+            null
+        );
+
+
+    if (profile) {
+
+        const key =
+            (
+                profile.email ||
+                profile.phone ||
+                profile.fullName ||
+                "customer"
+            )
+            .toLowerCase();
+
+
+        if (!customerMap.has(key)) {
+
+            customerMap.set(
+                key,
+                {
+
+                    key,
+
+                    name:
+                        profile.fullName ||
+                        "Customer",
+
+                    email:
+                        profile.email ||
+                        "Not provided",
+
+                    phone:
+                        profile.phone ||
+                        "Not provided",
+
+                    address:
+                        profile.address ||
+                        "Not provided",
+
+                    city:
+                        profile.city ||
+                        "",
+
+                    orders: [],
+
+                    firstOrderDate:
+                        null
+
+                }
+            );
+
+        }
+
+    }
+
+
+    customers =
+        Array.from(
+            customerMap.values()
+        );
+
+}
+
+
+/* =========================================================
+   CUSTOMER SPENDING
+   ========================================================= */
+
+function getCustomerSpent(customer) {
+
+    return customer.orders.reduce(
+        (total, order) => {
+
+            return total +
+                Number(
+                    order.total || 0
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   RENDER CUSTOMERS
+   ========================================================= */
+
+function renderCustomers() {
+
+    const tbody =
+        document.getElementById(
+            "customerTableBody"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "emptyState"
+        );
+
+
+    const search =
+        document.getElementById(
+            "customerSearch"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const filter =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+    const filtered =
+        customers.filter(
+            customer => {
+
+                const status =
+                    getCustomerStatus(
+                        customer.key
+                    );
+
+
+                const matchesSearch =
+                    !search ||
+                    customer.name
+                        .toLowerCase()
+                        .includes(search) ||
+                    customer.email
+                        .toLowerCase()
+                        .includes(search) ||
+                    customer.phone
+                        .toLowerCase()
+                        .includes(search);
+
+
+                const matchesFilter =
+                    filter === "all" ||
+                    filter === status;
+
+
+                return (
+                    matchesSearch &&
+                    matchesFilter
+                );
+
+            }
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        empty.style.display =
+            "flex";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    filtered.forEach(customer => {
+
+        const status =
+            getCustomerStatus(
+                customer.key
+            );
+
+
+        const spent =
+            getCustomerSpent(
+                customer
+            );
+
+
+        const row =
+            document.createElement(
+                "tr"
+            );
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <div class="customer-info">
+
+                    <div class="customer-avatar">
+                        ${escapeHTML(
+                            customer.name
+                                .charAt(0)
+                                .toUpperCase()
+                        )}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${escapeHTML(
+                                customer.name
+                            )}
+                        </strong>
+
+                        <small>
+                            ${escapeHTML(
+                                customer.city ||
+                                "FoodEase Customer"
+                            )}
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <div class="contact-info">
+
+                    <span>
+                        ${escapeHTML(
+                            customer.email
+                        )}
+                    </span>
+
+                    <small>
+                        ${escapeHTML(
+                            customer.phone
+                        )}
+                    </small>
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <span class="address-text">
+                    ${escapeHTML(
+                        customer.address
+                    )}
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <strong class="order-count">
+                    ${customer.orders.length}
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                <strong class="spent">
+                    ${formatMoney(
+                        spent
+                    )}
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                <span
+                    class="customer-status ${status}"
+                >
+                    ${
+                        status === "active"
+                            ? "Active"
+                            : "Blocked"
+                    }
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <div class="action-buttons">
+
+                    <button
+                        class="view-btn"
+                        onclick="openCustomerModal('${encodeURIComponent(
+                            customer.key
+                        )}')"
+                        title="View"
+                    >
+                        👁
+                    </button>
+
+
+                    <button
+                        class="${
+                            status === "active"
+                                ? "block-btn"
+                                : "unblock-btn"
+                        }"
+                        onclick="toggleCustomerStatus('${encodeURIComponent(
+                            customer.key
+                        )}')"
+                        title="${
+                            status === "active"
+                                ? "Block"
+                                : "Unblock"
+                        }"
+                    >
+                        ${
+                            status === "active"
+                                ? "🚫"
+                                : "✓"
+                        }
+                    </button>
+
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteCustomer('${encodeURIComponent(
+                            customer.key
+                        )}')"
+                        title="Delete"
+                    >
+                        🗑
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+/* =========================================================
+   UPDATE STATISTICS
+   ========================================================= */
+
+function updateStats() {
+
+    const total =
+        customers.length;
+
+
+    let active = 0;
+
+    let blocked = 0;
+
+    let totalOrders = 0;
+
+
+    customers.forEach(customer => {
+
+        const status =
+            getCustomerStatus(
+                customer.key
+            );
+
+
+        if (status === "active") {
+            active++;
+        } else {
+            blocked++;
+        }
+
+
+        totalOrders +=
+            customer.orders.length;
+
+    });
+
+
+    document.getElementById(
+        "totalCustomers"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "activeCustomers"
+    ).textContent =
+        active;
+
+
+    document.getElementById(
+        "blockedCustomers"
+    ).textContent =
+        blocked;
+
+
+    document.getElementById(
+        "totalCustomerOrders"
+    ).textContent =
+        totalOrders;
+
+
+    document.getElementById(
+        "customerBadge"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "orderBadge"
+    ).textContent =
+        totalOrders;
+
+}
+
+
+/* =========================================================
+   OPEN CUSTOMER MODAL
+   ========================================================= */
+
+function openCustomerModal(encodedKey) {
+
+    const key =
+        decodeURIComponent(
+            encodedKey
+        );
+
+
+    const customer =
+        customers.find(
+            item =>
+                item.key === key
+        );
+
+
+    if (!customer) {
+        return;
+    }
+
+
+    selectedCustomerKey =
+        key;
+
+
+    const status =
+        getCustomerStatus(key);
+
+
+    const spent =
+        getCustomerSpent(
+            customer
+        );
+
+
+    document.getElementById(
+        "modalAvatar"
+    ).textContent =
+        customer.name
+            .charAt(0)
+            .toUpperCase();
+
+
+    document.getElementById(
+        "modalName"
+    ).textContent =
+        customer.name;
+
+
+    const statusElement =
+        document.getElementById(
+            "modalStatus"
+        );
+
+
+    statusElement.textContent =
+        status === "active"
+            ? "Active"
+            : "Blocked";
+
+
+    statusElement.className =
+        status;
+
+
+    document.getElementById(
+        "modalEmail"
+    ).textContent =
+        customer.email;
+
+
+    document.getElementById(
+        "modalPhone"
+    ).textContent =
+        customer.phone;
+
+
+    document.getElementById(
+        "modalAddress"
+    ).textContent =
+        customer.address;
+
+
+    document.getElementById(
+        "modalOrders"
+    ).textContent =
+        customer.orders.length;
+
+
+    document.getElementById(
+        "modalSpent"
+    ).textContent =
+        formatMoney(spent);
+
+
+    document.getElementById(
+        "modalDate"
+    ).textContent =
+        formatDate(
+            customer.firstOrderDate
+        );
+
+
+    const statusButton =
+        document.getElementById(
+            "modalStatusButton"
+        );
+
+
+    statusButton.textContent =
+        status === "active"
+            ? "Block Customer"
+            : "Unblock Customer";
+
+
+    statusButton.onclick =
+        function () {
+
+            toggleCustomerStatus(
+                encodeURIComponent(
+                    key
+                )
+            );
+
+            closeCustomerModal();
+
+        };
+
+
+    document.getElementById(
+        "customerModal"
+    ).classList.add("show");
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+   ========================================================= */
+
+function closeCustomerModal() {
+
+    document.getElementById(
+        "customerModal"
+    ).classList.remove("show");
+
+}
+
+
+/* =========================================================
+   TOGGLE STATUS
+   ========================================================= */
+
+function toggleCustomerStatus(encodedKey) {
+
+    const key =
+        decodeURIComponent(
+            encodedKey
+        );
+
+
+    const statuses =
+        getStatuses();
+
+
+    const current =
+        getCustomerStatus(key);
+
+
+    if (current === "active") {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to block this customer?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        statuses[key] =
+            "blocked";
+
+    } else {
+
+        statuses[key] =
+            "active";
+
+    }
+
+
+    saveStatuses(
+        statuses
+    );
+
+
+    renderCustomers();
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   DELETE CUSTOMER
+   ========================================================= */
+
+function deleteCustomer(encodedKey) {
+
+    const key =
+        decodeURIComponent(
+            encodedKey
+        );
+
+
+    const customer =
+        customers.find(
+            item =>
+                item.key === key
+        );
+
+
+    if (!customer) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete ${customer.name} from the admin customer list?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    /*
+       We do not delete their orders.
+       We only remove the customer status/profile
+       reference from the admin-side demo data.
+    */
+
+    const statuses =
+        getStatuses();
+
+
+    delete statuses[key];
+
+
+    saveStatuses(
+        statuses
+    );
+
+
+    customers =
+        customers.filter(
+            item =>
+                item.key !== key
+        );
+
+
+    renderCustomers();
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+document.getElementById(
+    "customerSearch"
+).addEventListener(
+    "input",
+    renderCustomers
+);
+
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+document.getElementById(
+    "statusFilter"
+).addEventListener(
+    "change",
+    renderCustomers
+);
+
+
+/* =========================================================
+   MODAL OUTSIDE CLICK
+   ========================================================= */
+
+document.getElementById(
+    "customerModal"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            this
+        ) {
+
+            closeCustomerModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+function initializePage() {
+
+    loadDate();
+
+    buildCustomers();
+
+    updateStats();
+
+    renderCustomers();
+
+}
+
+
+initializePage();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard - FoodEase</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Common CSS -->
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css"
+    >
+
+    <!-- Admin Dashboard CSS -->
+    <link
+        rel="stylesheet"
+        href="../assets/css/admin-dashboard.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="admin-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="admin-sidebar">
+
+        <!-- Logo -->
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/images/logo.png"
+                alt="FoodEase Logo"
+            >
+
+            <div>
+
+                <h4>FoodEase</h4>
+
+                <span>
+                    Admin Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Admin Information -->
+
+        <div class="admin-profile-mini">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div>
+
+                <strong>
+                    Administrator
+                </strong>
+
+                <span>
+                    System Admin
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="admin-nav">
+
+            <a
+                href="dashboard.html"
+                class="active"
+            >
+
+                <span class="nav-icon">
+                    ▦
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="customers.html">
+
+                <span class="nav-icon">
+                    👥
+                </span>
+
+                <span>
+                    Customers
+                </span>
+
+                <span
+                    class="nav-badge"
+                    id="customerBadge"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+            <a href="restaurants.html">
+
+                <span class="nav-icon">
+                    🏪
+                </span>
+
+                <span>
+                    Restaurants
+                </span>
+
+                <span
+                    class="nav-badge restaurant-badge"
+                    id="restaurantBadge"
+                >
+                    13
+                </span>
+
+            </a>
+
+
+            <a href="orders.html">
+
+                <span class="nav-icon">
+                    🛒
+                </span>
+
+                <span>
+                    Orders
+                </span>
+
+                <span
+                    class="nav-badge order-badge"
+                    id="orderBadge"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+            <a href="riders.html">
+
+                <span class="nav-icon">
+                    🛵
+                </span>
+
+                <span>
+                    Riders
+                </span>
+
+            </a>
+
+
+            <a href="notifications.html">
+
+                <span class="nav-icon">
+                    🔔
+                </span>
+
+                <span>
+                    Notifications
+                </span>
+
+                <span
+                    class="nav-badge notification-badge"
+                    id="notificationBadge"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- Bottom -->
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="../index.html"
+                class="logout-link"
+            >
+
+                <span>
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- Header -->
+
+        <header class="admin-header">
+
+            <div>
+
+                <p class="page-label">
+                    Administration
+                </p>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <p class="header-description">
+                    Welcome back, Administrator. Here's what's happening on FoodEase.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="date-box">
+
+                    <span class="date-icon">
+                        📅
+                    </span>
+
+                    <div>
+
+                        <small>
+                            Today
+                        </small>
+
+                        <strong id="currentDate">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-header-avatar">
+                    A
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             STATISTICS
+             ===================================================== -->
+
+        <section class="stats-grid">
+
+
+            <!-- Customers -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon customers-icon">
+                        👥
+                    </div>
+
+                    <span>
+                        Customers
+                    </span>
+
+                </div>
+
+
+                <h2 id="totalCustomers">
+                    0
+                </h2>
+
+
+                <div class="stat-footer">
+
+                    <span class="positive">
+                        ● Active users
+                    </span>
+
+                    <span>
+                        Registered
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Restaurants -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon restaurants-icon">
+                        🏪
+                    </div>
+
+                    <span>
+                        Restaurants
+                    </span>
+
+                </div>
+
+
+                <h2 id="totalRestaurants">
+                    13
+                </h2>
+
+
+                <div class="stat-footer">
+
+                    <span class="positive">
+                        ● Partners
+                    </span>
+
+                    <span>
+                        Available
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Orders -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon orders-icon">
+                        🛒
+                    </div>
+
+                    <span>
+                        Total Orders
+                    </span>
+
+                </div>
+
+
+                <h2 id="totalOrders">
+                    0
+                </h2>
+
+
+                <div class="stat-footer">
+
+                    <span class="positive">
+                        ● Orders
+                    </span>
+
+                    <span>
+                        All time
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Revenue -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon revenue-icon">
+                        ৳
+                    </div>
+
+                    <span>
+                        Total Revenue
+                    </span>
+
+                </div>
+
+
+                <h2 id="totalRevenue">
+                    ৳0
+                </h2>
+
+
+                <div class="stat-footer">
+
+                    <span class="positive">
+                        ● Revenue
+                    </span>
+
+                    <span>
+                        All orders
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             QUICK ACTIONS
+             ===================================================== -->
+
+        <section class="quick-section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                    <p>
+                        Quickly access important administration areas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-grid">
+
+
+                <a
+                    href="customers.html"
+                    class="quick-card"
+                >
+
+                    <div class="quick-icon customers-quick">
+                        👥
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Manage Customers
+                        </strong>
+
+                        <span>
+                            View and manage customers
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+
+                <a
+                    href="restaurants.html"
+                    class="quick-card"
+                >
+
+                    <div class="quick-icon restaurants-quick">
+                        🏪
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Manage Restaurants
+                        </strong>
+
+                        <span>
+                            Manage restaurant partners
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+
+                <a
+                    href="orders.html"
+                    class="quick-card"
+                >
+
+                    <div class="quick-icon orders-quick">
+                        🛒
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Manage Orders
+                        </strong>
+
+                        <span>
+                            View all customer orders
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+
+                <a
+                    href="riders.html"
+                    class="quick-card"
+                >
+
+                    <div class="quick-icon riders-quick">
+                        🛵
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Manage Riders
+                        </strong>
+
+                        <span>
+                            View delivery riders
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             DASHBOARD LOWER AREA
+             ===================================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- Recent Orders -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Orders
+                        </h2>
+
+                        <p>
+                            Latest customer orders
+                        </p>
+
+                    </div>
+
+                    <a href="orders.html">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Order
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="recentOrdersTable">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div
+                    class="empty-table"
+                    id="ordersEmpty"
+                >
+
+                    <div class="empty-icon">
+                        🛒
+                    </div>
+
+                    <strong>
+                        No orders yet
+                    </strong>
+
+                    <span>
+                        Customer orders will appear here.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Platform Overview -->
+
+            <div class="dashboard-card overview-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Platform Overview
+                        </h2>
+
+                        <p>
+                            Current FoodEase statistics
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="overview-list">
+
+
+                    <div class="overview-row">
+
+                        <div class="overview-name">
+
+                            <span class="overview-icon blue">
+                                👥
+                            </span>
+
+                            Customers
+
+                        </div>
+
+                        <strong id="overviewCustomers">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="overview-row">
+
+                        <div class="overview-name">
+
+                            <span class="overview-icon teal">
+                                🏪
+                            </span>
+
+                            Restaurants
+
+                        </div>
+
+                        <strong id="overviewRestaurants">
+                            13
+                        </strong>
+
+                    </div>
+
+
+                    <div class="overview-row">
+
+                        <div class="overview-name">
+
+                            <span class="overview-icon orange">
+                                🛒
+                            </span>
+
+                            Orders
+
+                        </div>
+
+                        <strong id="overviewOrders">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="overview-row">
+
+                        <div class="overview-name">
+
+                            <span class="overview-icon purple">
+                                ৳
+                            </span>
+
+                            Revenue
+
+                        </div>
+
+                        <strong id="overviewRevenue">
+                            ৳0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Order Status -->
+
+                <div class="order-status-section">
+
+                    <h3>
+                        Order Status
+                    </h3>
+
+
+                    <div class="status-row">
+
+                        <div>
+
+                            <span class="status-dot pending"></span>
+
+                            Pending
+
+                        </div>
+
+                        <strong id="pendingOrders">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div>
+
+                            <span class="status-dot preparing"></span>
+
+                            Preparing
+
+                        </div>
+
+                        <strong id="preparingOrders">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div>
+
+                            <span class="status-dot ready"></span>
+
+                            Ready
+
+                        </div>
+
+                        <strong id="readyOrders">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div>
+
+                            <span class="status-dot delivered"></span>
+
+                            Delivered
+
+                        </div>
+
+                        <strong id="deliveredOrders">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SYSTEM ACTIVITY
+             ===================================================== -->
+
+        <section class="activity-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Recent Activity
+                    </h2>
+
+                    <p>
+                        Latest activity across the FoodEase platform.
+                    </p>
+
+                </div>
+
+                <a href="notifications.html">
+                    View All
+                </a>
+
+            </div>
+
+
+            <div
+                class="activity-list"
+                id="activityList"
+            >
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   STORAGE KEYS
+   ========================================================= */
+
+const ORDERS_KEY =
+    "foodease_orders";
+
+const CUSTOMER_PROFILE_KEY =
+    "foodease_customer_profile";
+
+const RESTAURANT_NOTIFICATIONS_KEY =
+    "foodease_restaurant_notifications";
+
+const CUSTOMER_NOTIFICATIONS_KEY =
+    "foodease_notifications";
+
+
+/* =========================================================
+   SAFE JSON
+   ========================================================= */
+
+function getJSON(key, fallback) {
+
+    try {
+
+        const stored =
+            localStorage.getItem(key);
+
+        if (!stored) {
+            return fallback;
+        }
+
+        return JSON.parse(stored);
+
+    } catch (error) {
+
+        return fallback;
+
+    }
+
+}
+
+
+/* =========================================================
+   MONEY FORMAT
+   ========================================================= */
+
+function formatMoney(amount) {
+
+    return "৳" +
+        Number(amount || 0)
+            .toLocaleString();
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   DATE FORMAT
+   ========================================================= */
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "—";
+    }
+
+    const date =
+        new Date(dateValue);
+
+    if (isNaN(date.getTime())) {
+        return "—";
+    }
+
+    return date.toLocaleDateString(
+        "en-BD",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CURRENT DATE
+   ========================================================= */
+
+function loadCurrentDate() {
+
+    const today =
+        new Date();
+
+    document.getElementById(
+        "currentDate"
+    ).textContent =
+        today.toLocaleDateString(
+            "en-BD",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   ORDERS
+   ========================================================= */
+
+function getOrders() {
+
+    return getJSON(
+        ORDERS_KEY,
+        []
+    );
+
+}
+
+
+/* =========================================================
+   CUSTOMER COUNT
+   ========================================================= */
+
+function getCustomerCount() {
+
+    const orders =
+        getOrders();
+
+    const customers =
+        new Set();
+
+
+    orders.forEach(order => {
+
+        const customer =
+            order.customer ||
+            order.customerInfo ||
+            order.deliveryInfo;
+
+
+        if (!customer) {
+            return;
+        }
+
+
+        const identifier =
+            customer.email ||
+            customer.phone ||
+            customer.fullName ||
+            customer.name;
+
+
+        if (identifier) {
+
+            customers.add(
+                String(identifier)
+                    .toLowerCase()
+            );
+
+        }
+
+    });
+
+
+    /*
+       If no order exists but a customer
+       profile is already stored, count it.
+    */
+
+    const profile =
+        localStorage.getItem(
+            CUSTOMER_PROFILE_KEY
+        );
+
+
+    if (
+        customers.size === 0 &&
+        profile
+    ) {
+
+        customers.add(
+            "customer-profile"
+        );
+
+    }
+
+
+    return customers.size;
+
+}
+
+
+/* =========================================================
+   RESTAURANT COUNT
+   ========================================================= */
+
+function getRestaurantCount() {
+
+    /*
+       FoodEase currently has 13
+       restaurant images/partners.
+    */
+
+    return 13;
+
+}
+
+
+/* =========================================================
+   TOTAL REVENUE
+   ========================================================= */
+
+function getRevenue(orders) {
+
+    return orders.reduce(
+        (total, order) => {
+
+            return total +
+                Number(
+                    order.total || 0
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE MAIN STATS
+   ========================================================= */
+
+function updateMainStats() {
+
+    const orders =
+        getOrders();
+
+    const customers =
+        getCustomerCount();
+
+    const restaurants =
+        getRestaurantCount();
+
+    const revenue =
+        getRevenue(orders);
+
+
+    document.getElementById(
+        "totalCustomers"
+    ).textContent =
+        customers;
+
+
+    document.getElementById(
+        "totalRestaurants"
+    ).textContent =
+        restaurants;
+
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent =
+        orders.length;
+
+
+    document.getElementById(
+        "totalRevenue"
+    ).textContent =
+        formatMoney(revenue);
+
+
+    document.getElementById(
+        "overviewCustomers"
+    ).textContent =
+        customers;
+
+
+    document.getElementById(
+        "overviewRestaurants"
+    ).textContent =
+        restaurants;
+
+
+    document.getElementById(
+        "overviewOrders"
+    ).textContent =
+        orders.length;
+
+
+    document.getElementById(
+        "overviewRevenue"
+    ).textContent =
+        formatMoney(revenue);
+
+
+    document.getElementById(
+        "customerBadge"
+    ).textContent =
+        customers;
+
+
+    document.getElementById(
+        "restaurantBadge"
+    ).textContent =
+        restaurants;
+
+
+    document.getElementById(
+        "orderBadge"
+    ).textContent =
+        orders.length;
+
+}
+
+
+/* =========================================================
+   ORDER STATUS COUNTS
+   ========================================================= */
+
+function updateOrderStatus() {
+
+    const orders =
+        getOrders();
+
+
+    const pending =
+        orders.filter(
+            order =>
+                order.status ===
+                "Order Placed"
+        ).length;
+
+
+    const preparing =
+        orders.filter(
+            order =>
+                order.status ===
+                "Preparing"
+        ).length;
+
+
+    const ready =
+        orders.filter(
+            order =>
+                order.status ===
+                "Ready"
+        ).length;
+
+
+    const delivered =
+        orders.filter(
+            order =>
+                order.status ===
+                "Delivered"
+        ).length;
+
+
+    document.getElementById(
+        "pendingOrders"
+    ).textContent =
+        pending;
+
+
+    document.getElementById(
+        "preparingOrders"
+    ).textContent =
+        preparing;
+
+
+    document.getElementById(
+        "readyOrders"
+    ).textContent =
+        ready;
+
+
+    document.getElementById(
+        "deliveredOrders"
+    ).textContent =
+        delivered;
+
+}
+
+
+/* =========================================================
+   CUSTOMER NAME
+   ========================================================= */
+
+function getCustomerName(order) {
+
+    const customer =
+        order.customer ||
+        order.customerInfo ||
+        order.deliveryInfo;
+
+
+    if (!customer) {
+        return "Customer";
+    }
+
+
+    return (
+        customer.fullName ||
+        customer.name ||
+        "Customer"
+    );
+
+}
+
+
+/* =========================================================
+   STATUS CLASS
+   ========================================================= */
+
+function getStatusClass(status) {
+
+    switch (status) {
+
+        case "Accepted":
+            return "accepted";
+
+        case "Preparing":
+            return "preparing";
+
+        case "Ready":
+            return "ready";
+
+        case "Delivered":
+            return "delivered";
+
+        case "Rejected":
+            return "rejected";
+
+        default:
+            return "pending";
+
+    }
+
+}
+
+
+/* =========================================================
+   RECENT ORDERS
+   ========================================================= */
+
+function renderRecentOrders() {
+
+    const table =
+        document.getElementById(
+            "recentOrdersTable"
+        );
+
+    const empty =
+        document.getElementById(
+            "ordersEmpty"
+        );
+
+
+    const orders =
+        getOrders();
+
+
+    const recentOrders =
+        [...orders]
+            .sort(
+                (a, b) => {
+
+                    const dateA =
+                        new Date(
+                            a.orderDate ||
+                            a.createdAt ||
+                            0
+                        );
+
+                    const dateB =
+                        new Date(
+                            b.orderDate ||
+                            b.createdAt ||
+                            0
+                        );
+
+                    return dateB - dateA;
+
+                }
+            )
+            .slice(0, 6);
+
+
+    table.innerHTML = "";
+
+
+    if (
+        recentOrders.length === 0
+    ) {
+
+        empty.style.display =
+            "flex";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    recentOrders.forEach(order => {
+
+        const customer =
+            getCustomerName(order);
+
+
+        const status =
+            order.status ||
+            "Order Placed";
+
+
+        const row =
+            document.createElement(
+                "tr"
+            );
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <a
+                    href="order-details.html?orderId=${encodeURIComponent(
+                        order.orderId || ""
+                    )}"
+                    class="order-id"
+                >
+                    ${escapeHTML(
+                        order.orderId ||
+                        "FE-000000"
+                    )}
+                </a>
+
+                <small>
+                    ${formatDate(
+                        order.orderDate ||
+                        order.createdAt
+                    )}
+                </small>
+
+            </td>
+
+
+            <td>
+
+                <div class="customer-cell">
+
+                    <span class="customer-avatar">
+                        ${escapeHTML(
+                            customer
+                                .charAt(0)
+                                .toUpperCase()
+                        )}
+                    </span>
+
+                    <span>
+                        ${escapeHTML(
+                            customer
+                        )}
+                    </span>
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${formatMoney(
+                        order.total
+                    )}
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                <span
+                    class="status-badge ${getStatusClass(
+                        status
+                    )}"
+                >
+                    ${escapeHTML(
+                        status
+                    )}
+                </span>
+
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+/* =========================================================
+   RECENT ACTIVITY
+   ========================================================= */
+
+function renderActivity() {
+
+    const container =
+        document.getElementById(
+            "activityList"
+        );
+
+
+    const orders =
+        getOrders();
+
+
+    const restaurantNotifications =
+        getJSON(
+            RESTAURANT_NOTIFICATIONS_KEY,
+            []
+        );
+
+
+    const customerNotifications =
+        getJSON(
+            CUSTOMER_NOTIFICATIONS_KEY,
+            []
+        );
+
+
+    const activities = [];
+
+
+    orders.forEach(order => {
+
+        activities.push({
+
+            icon: "🛒",
+
+            className: "order-activity",
+
+            title:
+                `Order ${
+                    order.orderId || ""
+                }`,
+
+            message:
+                `${getCustomerName(
+                    order
+                )} placed an order worth ${
+                    formatMoney(
+                        order.total
+                    )
+                }.`,
+
+            date:
+                order.orderDate ||
+                order.createdAt ||
+                new Date().toISOString()
+
+        });
+
+    });
+
+
+    restaurantNotifications.forEach(
+        notification => {
+
+            activities.push({
+
+                icon: "🏪",
+
+                className:
+                    "restaurant-activity",
+
+                title:
+                    notification.title ||
+                    "Restaurant Activity",
+
+                message:
+                    notification.message ||
+                    "Restaurant activity updated.",
+
+                date:
+                    notification.createdAt ||
+                    new Date().toISOString()
+
+            });
+
+        }
+    );
+
+
+    customerNotifications.forEach(
+        notification => {
+
+            activities.push({
+
+                icon: "👤",
+
+                className:
+                    "customer-activity",
+
+                title:
+                    notification.title ||
+                    "Customer Activity",
+
+                message:
+                    notification.message ||
+                    "Customer activity updated.",
+
+                date:
+                    notification.createdAt ||
+                    new Date().toISOString()
+
+            });
+
+        }
+    );
+
+
+    activities.sort(
+        (a, b) =>
+            new Date(b.date) -
+            new Date(a.date)
+    );
+
+
+    const latest =
+        activities.slice(0, 6);
+
+
+    container.innerHTML = "";
+
+
+    if (latest.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="activity-empty">
+
+                <div class="activity-empty-icon">
+                    🔔
+                </div>
+
+                <strong>
+                    No recent activity
+                </strong>
+
+                <span>
+                    Platform activity will appear here.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    latest.forEach(activity => {
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.className =
+            "activity-item";
+
+
+        item.innerHTML = `
+
+            <div
+                class="activity-icon ${activity.className}"
+            >
+                ${activity.icon}
+            </div>
+
+
+            <div class="activity-content">
+
+                <strong>
+                    ${escapeHTML(
+                        activity.title
+                    )}
+                </strong>
+
+                <p>
+                    ${escapeHTML(
+                        activity.message
+                    )}
+                </p>
+
+            </div>
+
+
+            <span class="activity-date">
+                ${formatDate(
+                    activity.date
+                )}
+            </span>
+
+        `;
+
+
+        container.appendChild(item);
+
+    });
+
+}
+
+
+/* =========================================================
+   NOTIFICATION BADGE
+   ========================================================= */
+
+function updateNotificationBadge() {
+
+    const restaurantNotifications =
+        getJSON(
+            RESTAURANT_NOTIFICATIONS_KEY,
+            []
+        );
+
+
+    const customerNotifications =
+        getJSON(
+            CUSTOMER_NOTIFICATIONS_KEY,
+            []
+        );
+
+
+    const unreadRestaurant =
+        restaurantNotifications.filter(
+            notification =>
+                !notification.read
+        ).length;
+
+
+    const unreadCustomer =
+        customerNotifications.filter(
+            notification =>
+                !notification.read
+        ).length;
+
+
+    document.getElementById(
+        "notificationBadge"
+    ).textContent =
+        unreadRestaurant +
+        unreadCustomer;
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+function initializeDashboard() {
+
+    loadCurrentDate();
+
+    updateMainStats();
+
+    updateOrderStatus();
+
+    renderRecentOrders();
+
+    renderActivity();
+
+    updateNotificationBadge();
+
+}
+
+
+initializeDashboard();
+
+
+</script>
+
+</body>
+
+</html>

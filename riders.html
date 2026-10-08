@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Riders | FoodEase Admin</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../assets/css/admin-riders.css">
+</head>
+
+<body>
+
+<div class="admin-wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <img src="../assets/images/logo.png" alt="FoodEase Logo">
+            <div>
+                <h3>FoodEase</h3>
+                <span>Admin Panel</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="customers.html">
+                <i class="bi bi-people-fill"></i>
+                <span>Customers</span>
+            </a>
+
+            <a href="restaurants.html">
+                <i class="bi bi-shop"></i>
+                <span>Restaurants</span>
+            </a>
+
+            <a href="orders.html">
+                <i class="bi bi-bag-check-fill"></i>
+                <span>Orders</span>
+            </a>
+
+            <a href="riders.html" class="active">
+                <i class="bi bi-bicycle"></i>
+                <span>Riders</span>
+            </a>
+
+            <a href="notifications.html">
+                <i class="bi bi-bell-fill"></i>
+                <span>Notifications</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="admin-mini-profile">
+                <div class="admin-avatar">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+
+                <div>
+                    <strong>Administrator</strong>
+                    <small>FoodEase Admin</small>
+                </div>
+            </div>
+
+            <a href="../login/admin-login.html" class="logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <h1>Rider Management</h1>
+                <p>Manage FoodEase delivery riders and availability.</p>
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="notification-btn"
+                        onclick="window.location.href='notifications.html'">
+                    <i class="bi bi-bell"></i>
+                    <span id="notificationBadge">0</span>
+                </button>
+
+                <div class="admin-top-profile">
+                    <div class="admin-top-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+
+                    <div>
+                        <strong>Admin</strong>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= STATISTICS ================= -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon total-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>Total Riders</span>
+                    <h2 id="totalRiders">0</h2>
+                    <small>Registered riders</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon available-icon">
+                    <i class="bi bi-person-check-fill"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>Available</span>
+                    <h2 id="availableRiders">0</h2>
+                    <small>Ready for delivery</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon delivery-icon">
+                    <i class="bi bi-bicycle"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>On Delivery</span>
+                    <h2 id="onDeliveryRiders">0</h2>
+                    <small>Currently delivering</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon offline-icon">
+                    <i class="bi bi-person-x-fill"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>Offline</span>
+                    <h2 id="offlineRiders">0</h2>
+                    <small>Currently unavailable</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RIDER MANAGEMENT ================= -->
+        <section class="content-card">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>All Riders</h2>
+                    <p>View and manage FoodEase delivery riders.</p>
+                </div>
+
+                <button class="add-rider-btn" onclick="openAddRiderModal()">
+                    <i class="bi bi-plus-lg"></i>
+                    Add Rider
+                </button>
+
+            </div>
+
+
+            <!-- FILTER AREA -->
+            <div class="filter-area">
+
+                <div class="search-box">
+
+                    <i class="bi bi-search"></i>
+
+                    <input type="text"
+                           id="searchInput"
+                           placeholder="Search by rider name, phone or ID..."
+                           oninput="renderRiders()">
+
+                </div>
+
+
+                <select id="statusFilter"
+                        onchange="renderRiders()">
+
+                    <option value="all">All Status</option>
+                    <option value="Available">Available</option>
+                    <option value="On Delivery">On Delivery</option>
+                    <option value="Offline">Offline</option>
+
+                </select>
+
+
+                <select id="vehicleFilter"
+                        onchange="renderRiders()">
+
+                    <option value="all">All Vehicles</option>
+                    <option value="Bike">Bike</option>
+                    <option value="Motorcycle">Motorcycle</option>
+                    <option value="Bicycle">Bicycle</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- RIDER TABLE -->
+            <div class="table-wrapper">
+
+                <table class="rider-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Rider</th>
+                            <th>Rider ID</th>
+                            <th>Phone</th>
+                            <th>Vehicle</th>
+                            <th>Orders</th>
+                            <th>Status</th>
+                            <th>Joined</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="riderTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- EMPTY STATE -->
+            <div id="emptyState" class="empty-state">
+
+                <div class="empty-icon">
+                    <i class="bi bi-bicycle"></i>
+                </div>
+
+                <h3>No Riders Found</h3>
+
+                <p>
+                    No riders match your current search or filter.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= RIDER DETAILS MODAL ================= -->
+
+<div class="modal-overlay" id="detailsModal">
+
+    <div class="custom-modal">
+
+        <button class="modal-close" onclick="closeDetailsModal()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div class="modal-title">
+
+            <div class="modal-rider-avatar" id="modalAvatar">
+                <i class="bi bi-person-fill"></i>
+            </div>
+
+            <div>
+                <h2 id="modalRiderName">Rider Name</h2>
+                <span id="modalRiderId">RIDER-000</span>
+            </div>
+
+        </div>
+
+
+        <div class="rider-details-grid">
+
+            <div class="detail-box">
+                <span>Phone</span>
+                <strong id="modalPhone">-</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Email</span>
+                <strong id="modalEmail">-</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Vehicle</span>
+                <strong id="modalVehicle">-</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Vehicle Number</span>
+                <strong id="modalVehicleNumber">-</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Total Orders</span>
+                <strong id="modalOrders">0</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Joined</span>
+                <strong id="modalJoined">-</strong>
+            </div>
+
+            <div class="detail-box full-width">
+                <span>Address</span>
+                <strong id="modalAddress">-</strong>
+            </div>
+
+            <div class="detail-box full-width">
+                <span>Current Status</span>
+                <div id="modalStatus"></div>
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button class="secondary-btn"
+                    onclick="closeDetailsModal()">
+                Close
+            </button>
+
+            <button class="primary-btn"
+                    id="modalStatusButton">
+                Change Status
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ADD RIDER MODAL ================= -->
+
+<div class="modal-overlay" id="addRiderModal">
+
+    <div class="custom-modal add-modal">
+
+        <button class="modal-close"
+                onclick="closeAddRiderModal()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div class="modal-heading">
+
+            <div class="heading-icon">
+                <i class="bi bi-person-plus-fill"></i>
+            </div>
+
+            <div>
+                <h2>Add New Rider</h2>
+                <p>Create a rider profile for delivery management.</p>
+            </div>
+
+        </div>
+
+
+        <form id="addRiderForm">
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="riderName">
+                        Full Name
+                    </label>
+
+                    <input type="text"
+                           id="riderName"
+                           placeholder="Enter rider name"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="riderPhone">
+                        Phone Number
+                    </label>
+
+                    <input type="tel"
+                           id="riderPhone"
+                           placeholder="01XXXXXXXXX"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="riderEmail">
+                        Email
+                    </label>
+
+                    <input type="email"
+                           id="riderEmail"
+                           placeholder="rider@example.com"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="riderVehicle">
+                        Vehicle Type
+                    </label>
+
+                    <select id="riderVehicle" required>
+
+                        <option value="">
+                            Select vehicle
+                        </option>
+
+                        <option value="Bike">
+                            Bike
+                        </option>
+
+                        <option value="Motorcycle">
+                            Motorcycle
+                        </option>
+
+                        <option value="Bicycle">
+                            Bicycle
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="riderVehicleNumber">
+                        Vehicle Number
+                    </label>
+
+                    <input type="text"
+                           id="riderVehicleNumber"
+                           placeholder="e.g. DHAKA-METRO-1234"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="riderStatus">
+                        Initial Status
+                    </label>
+
+                    <select id="riderStatus">
+
+                        <option value="Available">
+                            Available
+                        </option>
+
+                        <option value="Offline">
+                            Offline
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="riderAddress">
+                    Address
+                </label>
+
+                <textarea id="riderAddress"
+                          rows="3"
+                          placeholder="Enter rider address"
+                          required></textarea>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="secondary-btn"
+                        onclick="closeAddRiderModal()">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        class="primary-btn">
+                    <i class="bi bi-plus-lg"></i>
+                    Add Rider
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= STATUS MODAL ================= -->
+
+<div class="modal-overlay" id="statusModal">
+
+    <div class="custom-modal status-modal">
+
+        <button class="modal-close"
+                onclick="closeStatusModal()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div class="modal-heading">
+
+            <div class="heading-icon">
+                <i class="bi bi-arrow-repeat"></i>
+            </div>
+
+            <div>
+                <h2>Change Rider Status</h2>
+                <p id="statusRiderName">Select a new status.</p>
+            </div>
+
+        </div>
+
+
+        <div class="status-options">
+
+            <button class="status-option available-option"
+                    onclick="changeRiderStatus('Available')">
+
+                <span class="option-icon">
+                    <i class="bi bi-person-check-fill"></i>
+                </span>
+
+                <span>
+                    <strong>Available</strong>
+                    <small>Ready to receive delivery orders</small>
+                </span>
+
+            </button>
+
+
+            <button class="status-option delivery-option"
+                    onclick="changeRiderStatus('On Delivery')">
+
+                <span class="option-icon">
+                    <i class="bi bi-bicycle"></i>
+                </span>
+
+                <span>
+                    <strong>On Delivery</strong>
+                    <small>Currently delivering an order</small>
+                </span>
+
+            </button>
+
+
+            <button class="status-option offline-option"
+                    onclick="changeRiderStatus('Offline')">
+
+                <span class="option-icon">
+                    <i class="bi bi-person-x-fill"></i>
+                </span>
+
+                <span>
+                    <strong>Offline</strong>
+                    <small>Not currently available</small>
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const RIDERS_KEY = "foodease_riders";
+
+let selectedRiderId = null;
+
+
+/* ================= DEFAULT RIDERS ================= */
+
+const defaultRiders = [
+
+    {
+        id: "RDR-1001",
+        name: "Rahim Uddin",
+        phone: "01711001122",
+        email: "rahim@foodease.com",
+        vehicle: "Motorcycle",
+        vehicleNumber: "DHAKA-METRO-1101",
+        orders: 48,
+        status: "Available",
+        joined: "2026-01-15",
+        address: "Mirpur, Dhaka"
+    },
+
+    {
+        id: "RDR-1002",
+        name: "Karim Hasan",
+        phone: "01822002233",
+        email: "karim@foodease.com",
+        vehicle: "Bike",
+        vehicleNumber: "DHAKA-METRO-2202",
+        orders: 37,
+        status: "On Delivery",
+        joined: "2026-02-03",
+        address: "Mohammadpur, Dhaka"
+    },
+
+    {
+        id: "RDR-1003",
+        name: "Sakib Ahmed",
+        phone: "01933003344",
+        email: "sakib@foodease.com",
+        vehicle: "Motorcycle",
+        vehicleNumber: "DHAKA-METRO-3303",
+        orders: 62,
+        status: "Available",
+        joined: "2025-12-20",
+        address: "Uttara, Dhaka"
+    },
+
+    {
+        id: "RDR-1004",
+        name: "Tanvir Hossain",
+        phone: "01644004455",
+        email: "tanvir@foodease.com",
+        vehicle: "Bicycle",
+        vehicleNumber: "BUP-BIKE-4404",
+        orders: 29,
+        status: "Offline",
+        joined: "2026-03-12",
+        address: "Banani, Dhaka"
+    },
+
+    {
+        id: "RDR-1005",
+        name: "Nayeem Islam",
+        phone: "01555005566",
+        email: "nayeem@foodease.com",
+        vehicle: "Bike",
+        vehicleNumber: "DHAKA-METRO-5505",
+        orders: 51,
+        status: "Available",
+        joined: "2026-01-28",
+        address: "Badda, Dhaka"
+    },
+
+    {
+        id: "RDR-1006",
+        name: "Fahim Chowdhury",
+        phone: "01366006677",
+        email: "fahim@foodease.com",
+        vehicle: "Motorcycle",
+        vehicleNumber: "DHAKA-METRO-6606",
+        orders: 43,
+        status: "Offline",
+        joined: "2026-02-18",
+        address: "Khilgaon, Dhaka"
+    }
+
+];
+
+
+/* ================= LOAD RIDERS ================= */
+
+function getRiders() {
+
+    const saved = localStorage.getItem(RIDERS_KEY);
+
+    if (!saved) {
+
+        localStorage.setItem(
+            RIDERS_KEY,
+            JSON.stringify(defaultRiders)
+        );
+
+        return [...defaultRiders];
+    }
+
+    try {
+
+        const riders = JSON.parse(saved);
+
+        if (Array.isArray(riders)) {
+            return riders;
+        }
+
+    } catch (error) {
+
+        console.error("Unable to load riders:", error);
+
+    }
+
+    localStorage.setItem(
+        RIDERS_KEY,
+        JSON.stringify(defaultRiders)
+    );
+
+    return [...defaultRiders];
+}
+
+
+/* ================= SAVE RIDERS ================= */
+
+function saveRiders(riders) {
+
+    localStorage.setItem(
+        RIDERS_KEY,
+        JSON.stringify(riders)
+    );
+
+}
+
+
+/* ================= INITIALIZE ================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    renderRiders();
+    updateStats();
+    updateNotificationBadge();
+
+    document
+        .getElementById("addRiderForm")
+        .addEventListener("submit", addRider);
+
+});
+
+
+/* ================= RENDER RIDERS ================= */
+
+function renderRiders() {
+
+    const riders = getRiders();
+
+    const searchValue =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const statusValue =
+        document
+            .getElementById("statusFilter")
+            .value;
+
+    const vehicleValue =
+        document
+            .getElementById("vehicleFilter")
+            .value;
+
+
+    const filteredRiders = riders.filter(rider => {
+
+        const matchesSearch =
+            rider.name.toLowerCase().includes(searchValue) ||
+            rider.id.toLowerCase().includes(searchValue) ||
+            rider.phone.toLowerCase().includes(searchValue);
+
+        const matchesStatus =
+            statusValue === "all" ||
+            rider.status === statusValue;
+
+        const matchesVehicle =
+            vehicleValue === "all" ||
+            rider.vehicle === vehicleValue;
+
+        return (
+            matchesSearch &&
+            matchesStatus &&
+            matchesVehicle
+        );
+
+    });
+
+
+    const tbody =
+        document.getElementById("riderTableBody");
+
+    tbody.innerHTML = "";
+
+
+    if (filteredRiders.length === 0) {
+
+        document
+            .getElementById("emptyState")
+            .classList.add("show");
+
+        document
+            .querySelector(".table-wrapper")
+            .classList.add("hidden");
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("emptyState")
+        .classList.remove("show");
+
+    document
+        .querySelector(".table-wrapper")
+        .classList.remove("hidden");
+
+
+    filteredRiders.forEach(rider => {
+
+        const row =
+            document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>
+
+                <div class="rider-info">
+
+                    <div class="table-avatar">
+                        ${getInitials(rider.name)}
+                    </div>
+
+                    <div>
+
+                        <strong>${escapeHtml(rider.name)}</strong>
+
+                        <small>
+                            ${escapeHtml(rider.email)}
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+
+            <td>
+                <span class="rider-id">
+                    ${escapeHtml(rider.id)}
+                </span>
+            </td>
+
+
+            <td>
+                ${escapeHtml(rider.phone)}
+            </td>
+
+
+            <td>
+
+                <div class="vehicle-info">
+
+                    <i class="${getVehicleIcon(rider.vehicle)}"></i>
+
+                    <span>
+                        ${escapeHtml(rider.vehicle)}
+                    </span>
+
+                </div>
+
+            </td>
+
+
+            <td>
+                <strong class="order-count">
+                    ${Number(rider.orders) || 0}
+                </strong>
+            </td>
+
+
+            <td>
+                ${getStatusBadge(rider.status)}
+            </td>
+
+
+            <td>
+                ${formatDate(rider.joined)}
+            </td>
+
+
+            <td>
+
+                <div class="action-buttons">
+
+                    <button
+                        class="action-btn view-btn"
+                        title="View Details"
+                        onclick="viewRider('${rider.id}')">
+
+                        <i class="bi bi-eye-fill"></i>
+
+                    </button>
+
+
+                    <button
+                        class="action-btn status-btn"
+                        title="Change Status"
+                        onclick="openStatusModal('${rider.id}')">
+
+                        <i class="bi bi-arrow-repeat"></i>
+
+                    </button>
+
+
+                    <button
+                        class="action-btn delete-btn"
+                        title="Delete Rider"
+                        onclick="deleteRider('${rider.id}')">
+
+                        <i class="bi bi-trash3-fill"></i>
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+/* ================= UPDATE STATS ================= */
+
+function updateStats() {
+
+    const riders = getRiders();
+
+    const total =
+        riders.length;
+
+    const available =
+        riders.filter(
+            rider => rider.status === "Available"
+        ).length;
+
+    const onDelivery =
+        riders.filter(
+            rider => rider.status === "On Delivery"
+        ).length;
+
+    const offline =
+        riders.filter(
+            rider => rider.status === "Offline"
+        ).length;
+
+
+    document.getElementById("totalRiders").textContent =
+        total;
+
+    document.getElementById("availableRiders").textContent =
+        available;
+
+    document.getElementById("onDeliveryRiders").textContent =
+        onDelivery;
+
+    document.getElementById("offlineRiders").textContent =
+        offline;
+
+}
+
+
+/* ================= VIEW RIDER ================= */
+
+function viewRider(riderId) {
+
+    const riders = getRiders();
+
+    const rider =
+        riders.find(
+            item => item.id === riderId
+        );
+
+    if (!rider) {
+        return;
+    }
+
+
+    selectedRiderId = riderId;
+
+
+    document.getElementById("modalRiderName").textContent =
+        rider.name;
+
+    document.getElementById("modalRiderId").textContent =
+        rider.id;
+
+    document.getElementById("modalPhone").textContent =
+        rider.phone;
+
+    document.getElementById("modalEmail").textContent =
+        rider.email;
+
+    document.getElementById("modalVehicle").textContent =
+        rider.vehicle;
+
+    document.getElementById("modalVehicleNumber").textContent =
+        rider.vehicleNumber;
+
+    document.getElementById("modalOrders").textContent =
+        rider.orders || 0;
+
+    document.getElementById("modalJoined").textContent =
+        formatDate(rider.joined);
+
+    document.getElementById("modalAddress").textContent =
+        rider.address;
+
+
+    document.getElementById("modalAvatar").textContent =
+        getInitials(rider.name);
+
+
+    document.getElementById("modalStatus").innerHTML =
+        getStatusBadge(rider.status);
+
+
+    document.getElementById("modalStatusButton").onclick =
+        function () {
+
+            closeDetailsModal();
+
+            setTimeout(function () {
+                openStatusModal(rider.id);
+            }, 200);
+
+        };
+
+
+    document
+        .getElementById("detailsModal")
+        .classList.add("show");
+
+}
+
+
+/* ================= DETAILS MODAL ================= */
+
+function closeDetailsModal() {
+
+    document
+        .getElementById("detailsModal")
+        .classList.remove("show");
+
+}
+
+
+/* ================= ADD RIDER ================= */
+
+function openAddRiderModal() {
+
+    document
+        .getElementById("addRiderModal")
+        .classList.add("show");
+
+}
+
+
+function closeAddRiderModal() {
+
+    document
+        .getElementById("addRiderModal")
+        .classList.remove("show");
+
+}
+
+
+/* ================= CREATE RIDER ================= */
+
+function addRider(event) {
+
+    event.preventDefault();
+
+
+    const riders = getRiders();
+
+
+    const name =
+        document
+            .getElementById("riderName")
+            .value
+            .trim();
+
+    const phone =
+        document
+            .getElementById("riderPhone")
+            .value
+            .trim();
+
+    const email =
+        document
+            .getElementById("riderEmail")
+            .value
+            .trim();
+
+    const vehicle =
+        document
+            .getElementById("riderVehicle")
+            .value;
+
+    const vehicleNumber =
+        document
+            .getElementById("riderVehicleNumber")
+            .value
+            .trim();
+
+    const status =
+        document
+            .getElementById("riderStatus")
+            .value;
+
+    const address =
+        document
+            .getElementById("riderAddress")
+            .value
+            .trim();
+
+
+    if (
+        !name ||
+        !phone ||
+        !email ||
+        !vehicle ||
+        !vehicleNumber ||
+        !address
+    ) {
+
+        alert("Please fill in all rider information.");
+
+        return;
+
+    }
+
+
+    const newRider = {
+
+        id: generateRiderId(),
+
+        name: name,
+
+        phone: phone,
+
+        email: email,
+
+        vehicle: vehicle,
+
+        vehicleNumber: vehicleNumber,
+
+        orders: 0,
+
+        status: status,
+
+        joined: new Date()
+            .toISOString()
+            .split("T")[0],
+
+        address: address
+
+    };
+
+
+    riders.push(newRider);
+
+    saveRiders(riders);
+
+
+    document
+        .getElementById("addRiderForm")
+        .reset();
+
+
+    closeAddRiderModal();
+
+    renderRiders();
+
+    updateStats();
+
+
+    alert(
+        `${name} has been added successfully.`
+    );
+
+}
+
+
+/* ================= GENERATE RIDER ID ================= */
+
+function generateRiderId() {
+
+    const riders = getRiders();
+
+    let number =
+        1001 + riders.length;
+
+
+    let id =
+        `RDR-${number}`;
+
+
+    while (
+        riders.some(
+            rider => rider.id === id
+        )
+    ) {
+
+        number++;
+
+        id =
+            `RDR-${number}`;
+
+    }
+
+
+    return id;
+
+}
+
+
+/* ================= STATUS MODAL ================= */
+
+function openStatusModal(riderId) {
+
+    const riders = getRiders();
+
+    const rider =
+        riders.find(
+            item => item.id === riderId
+        );
+
+    if (!rider) {
+        return;
+    }
+
+
+    selectedRiderId = riderId;
+
+
+    document
+        .getElementById("statusRiderName")
+        .textContent =
+        `Change status for ${rider.name}`;
+
+
+    document
+        .getElementById("statusModal")
+        .classList.add("show");
+
+}
+
+
+function closeStatusModal() {
+
+    document
+        .getElementById("statusModal")
+        .classList.remove("show");
+
+}
+
+
+/* ================= CHANGE STATUS ================= */
+
+function changeRiderStatus(newStatus) {
+
+    if (!selectedRiderId) {
+        return;
+    }
+
+
+    const riders = getRiders();
+
+    const rider =
+        riders.find(
+            item => item.id === selectedRiderId
+        );
+
+    if (!rider) {
+        return;
+    }
+
+
+    rider.status = newStatus;
+
+
+    saveRiders(riders);
+
+    renderRiders();
+
+    updateStats();
+
+    closeStatusModal();
+
+
+    if (
+        document
+            .getElementById("detailsModal")
+            .classList.contains("show")
+    ) {
+
+        viewRider(selectedRiderId);
+
+    }
+
+}
+
+
+/* ================= DELETE RIDER ================= */
+
+function deleteRider(riderId) {
+
+    const riders = getRiders();
+
+    const rider =
+        riders.find(
+            item => item.id === riderId
+        );
+
+    if (!rider) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to remove ${rider.name}?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const updatedRiders =
+        riders.filter(
+            item => item.id !== riderId
+        );
+
+
+    saveRiders(updatedRiders);
+
+    renderRiders();
+
+    updateStats();
+
+
+    if (selectedRiderId === riderId) {
+
+        selectedRiderId = null;
+
+        closeDetailsModal();
+
+    }
+
+}
+
+
+/* ================= STATUS BADGE ================= */
+
+function getStatusBadge(status) {
+
+    let className =
+        "status-badge";
+
+
+    if (status === "Available") {
+
+        className +=
+            " status-available";
+
+    } else if (status === "On Delivery") {
+
+        className +=
+            " status-delivery";
+
+    } else {
+
+        className +=
+            " status-offline";
+
+    }
+
+
+    return `
+        <span class="${className}">
+            <span class="status-dot"></span>
+            ${escapeHtml(status)}
+        </span>
+    `;
+
+}
+
+
+/* ================= VEHICLE ICON ================= */
+
+function getVehicleIcon(vehicle) {
+
+    if (vehicle === "Motorcycle") {
+
+        return "bi bi-scooter";
+
+    }
+
+    if (vehicle === "Bicycle") {
+
+        return "bi bi-bicycle";
+
+    }
+
+    return "bi bi-bicycle";
+
+}
+
+
+/* ================= INITIALS ================= */
+
+function getInitials(name) {
+
+    const parts =
+        name
+            .trim()
+            .split(/\s+/);
+
+    if (parts.length === 1) {
+
+        return parts[0]
+            .substring(0, 2)
+            .toUpperCase();
+
+    }
+
+
+    return (
+        parts[0][0] +
+        parts[parts.length - 1][0]
+    ).toUpperCase();
+
+}
+
+
+/* ================= DATE FORMAT ================= */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(dateString);
+
+
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+
+
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* ================= ESCAPE HTML ================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* ================= NOTIFICATION BADGE ================= */
+
+function updateNotificationBadge() {
+
+    const notifications =
+        JSON.parse(
+            localStorage.getItem(
+                "foodease_admin_notifications"
+            ) || "[]"
+        );
+
+
+    const unread =
+        notifications.filter(
+            notification =>
+                notification.read !== true
+        ).length;
+
+
+    const badge =
+        document.getElementById(
+            "notificationBadge"
+        );
+
+
+    if (unread > 0) {
+
+        badge.textContent =
+            unread > 99 ? "99+" : unread;
+
+        badge.style.display =
+            "flex";
+
+    } else {
+
+        badge.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ================= CLOSE MODALS ON OVERLAY ================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target.id ===
+            "detailsModal"
+        ) {
+
+            closeDetailsModal();
+
+        }
+
+
+        if (
+            event.target.id ===
+            "addRiderModal"
+        ) {
+
+            closeAddRiderModal();
+
+        }
+
+
+        if (
+            event.target.id ===
+            "statusModal"
+        ) {
+
+            closeStatusModal();
+
+        }
+
+    }
+);
+
+
+/* ================= ESC KEY ================= */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+        closeDetailsModal();
+        closeAddRiderModal();
+        closeStatusModal();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
